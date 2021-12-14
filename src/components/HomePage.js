@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
 
 function HomePage() {
     const [difficulty, setDifficulty] = useState("")
@@ -22,7 +23,7 @@ function HomePage() {
                     <button onClick={()=> handleDifficulty("hard")}>Hard</button>
                 </div>
             </div>
-            <button>start</button>
+            <button><Link to="/question">start</Link></button>
         </section>
     )
 }
