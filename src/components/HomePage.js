@@ -1,12 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { Link } from 'react-router-dom'
+import { AppState } from '../App'
 
 function HomePage() {
-    const [difficulty, setDifficulty] = useState("")
+    const context = useContext(AppState)
+    const {centralState,reducers} = context
+    console.log(centralState)
 
-    const handleDifficulty = (value) => {
-        setDifficulty(value)
-    }
+    
 
     
     return (
@@ -18,9 +19,9 @@ function HomePage() {
             <div>
                 <h5>Difficulty</h5>
                 <div>
-                    <button onClick={()=> handleDifficulty("easy")}>Easy</button>
-                    <button onClick={()=> handleDifficulty("medium")}>Medium</button>
-                    <button onClick={()=> handleDifficulty("hard")}>Hard</button>
+                    <button onClick={()=> reducers({type:"SET_DIFFICULTY", payload:"easy"})}>Easy</button>
+                    <button onClick={()=> reducers({type:"SET_DIFFICULTY", payload:"medium"})}>Medium</button>
+                    <button onClick={()=> reducers({type:"SET_DIFFICULTY", payload:"hard"})}>Hard</button>
                 </div>
             </div>
             <button><Link to="/question">start</Link></button>
