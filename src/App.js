@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import Question from './components/Question';
 import {initialState, reducer} from "./ContextAPI"
 import React, {useReducer} from 'react';
+import Results from './components/Results';
 
 
 export const AppState = React.createContext()
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/question" element={<Question />} />
+            <Route exact path="/result" element={<Results />} />
           </Routes>
         </div>
       </Router>      

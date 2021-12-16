@@ -13,7 +13,7 @@ export const reducer = (state, action) => {
         case "SET_DIFFICULTY":
             return {...state, difficulty: action.payload}
         case "UPDATE_RESULT": 
-             return {...state, QnA: state.QnA.push(action.payload)}
+             return {...state, QnA: action.payload}
         case "RESET_RESULT":
             return initialState
         default:

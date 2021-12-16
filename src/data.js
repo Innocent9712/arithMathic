@@ -37,7 +37,7 @@ const generateQuestion = () => {
     }
 }
 
-for (let index = 0; index < 10 ; index++) {
+for (let index = 0; index < 20 ; index++) {
     let question = generateQuestion()
-    questions.push(question)   
+    questions.push(question)
 }

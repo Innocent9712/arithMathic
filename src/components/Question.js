@@ -1,7 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { questions } from '../data'
+import { AppState } from '../App'
 
 function Question() {
+    const context = useContext(AppState)
+    const {reducers} = context
     const questionsArr = questions
     const [counter, setCounter] = useState(60)
     const [quizState, setQuizState] = useState(false)
@@ -9,6 +13,7 @@ function Question() {
     const [questionNumber, setQuestionNumber] = useState(answeredQuestions.length + 1)
     const [currentQuestion, setCurrentQuestion] = useState(questionsArr[0])
     const [answerInput, setAnswerInput] = useState("")
+    const navigate = useNavigate()
     console.log(currentQuestion)
     console.log(questionsArr)
     console.log(answeredQuestions)
@@ -18,7 +23,7 @@ function Question() {
     
     const recursiveFnc = () => {
         let timeout
-        if (number > 0 && quizState === true) {
+        if (number > 0) {
             setTimeout(() => {
                 number--
                 setCounter(number)
@@ -46,9 +51,9 @@ function Question() {
         if (questionsArr.length > 0 ) {
             const newObj = {
                 question: currentQuestion.question,
-                answer: currentQuestion.answer,
+                answer: currentQuestion.answer(),
                 response: Number(answerInput),
-                correct: Number(answerInput) === currentQuestion.answer ? true : false
+                correct: Number(answerInput) === currentQuestion.answer() ? true : false
             }
             setAnsweredQuestions(prevState=> [...prevState, newObj])
             questionsArr.shift()
@@ -59,6 +64,11 @@ function Question() {
         } else {
             alert("all questions have been answered.")
         }
+    }
+
+    const handleResult = () => {
+        reducers({type:"UPDATE_RESULT", payload: answeredQuestions})
+        navigate("/result")
     }
 
     return (
@@ -79,6 +89,7 @@ function Question() {
             ): (
                 <div>
                     <h3>Time up!</h3>
+                    <button onClick={handleResult}>see result</button>
                 </div>
             )
         }

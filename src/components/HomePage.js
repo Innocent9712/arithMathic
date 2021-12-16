@@ -8,8 +8,6 @@ function HomePage() {
     console.log(centralState)
 
     
-
-    
     return (
         <section className="home">
             <div className="intro">
