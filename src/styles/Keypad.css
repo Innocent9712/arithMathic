@@ -1,0 +1,10 @@
+@layer components {
+    .keypad {
+        @apply flex text-lg;
+        padding-left: 0;
+    }
+}
+
+.keypad {
+    padding-left: 0;
+}

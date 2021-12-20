@@ -1,11 +1,12 @@
 import React from 'react'
 import logo from "../assets/logo.svg"
+import "../styles/Header.css"
 
 function Header() {
     return (
-        <div>
+        <header>
             <img src={logo} alt="logo" />
-        </div>
+        </header>
     )
 }
 

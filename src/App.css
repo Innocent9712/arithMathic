@@ -1,3 +1,8 @@
-.App {
-  font-family: 'Source Sans 3', sans-serif;
+
+@layer components {
+  .App {
+    @apply container py-4 px-5;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  
 }

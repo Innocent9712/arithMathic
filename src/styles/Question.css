@@ -1,0 +1,22 @@
+@layer components {
+    .question {
+        @apply relative;
+    }
+
+    .sub_container {
+        @apply bg-blue-100 rounded-sm p-4;
+        min-height: 200px;
+    }
+
+    .start_section {
+        @apply text-center;
+    }
+
+    .counter {
+        @apply absolute p-4 bg-blue-700 text-center rounded-md text-white top-1 right-1;
+    }
+
+    .question_start {
+        @apply mt-6;
+    }
+}

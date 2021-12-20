@@ -2,6 +2,8 @@ import React, {useState, useEffect, useContext} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { questions } from '../data'
 import { AppState } from '../App'
+import Keypad from './Keypad'
+import "../styles/Question.css"
 
 function Question() {
     const context = useContext(AppState)
@@ -71,31 +73,38 @@ function Question() {
         navigate("/result")
     }
 
+    const keypadClick = (value) => {
+        setAnswerInput((prevState)=>(prevState+=value))
+    }
+
     return (
         <section  className="question">{
             counter > 0 && !quizState ? (
-                <div>
+                <div className="sub_container start_section">
                     <h3>Start Test!</h3>
                     <p>click start to begin</p>
                 </div>
             ): counter > 0 && quizState ? (
-                <div>
+                <div className="sub_container main_question">
                     <h4>Question No. {questionNumber}</h4>
                     <p>{currentQuestion.question}</p>
                     <label>answer</label>
                     <input type="number" name="answer" value={answerInput} onChange={handleChange} />
-                    <button type="submit" onClick={handleClick}>next</button>
+                    <button  type="submit" onClick={handleClick}>next</button>
                 </div>
             ): (
-                <div>
+                <div className="sub_container start_section">
                     <h3>Time up!</h3>
                     <button onClick={handleResult}>see result</button>
                 </div>
             )
         }
-            <p>{counter}</p>
-            <button className={`start ${quizState?"hide": undefined}`} onClick={handleStart}>begin</button>
-            <button onClick={()=> setQuizState(false)}>done</button>
+            <p className="counter">{counter}</p>
+            <button className={`question_start start ${quizState?"hide": undefined}`} onClick={handleStart}>begin</button>
+            <button className="question_end" onClick={()=> setQuizState(false)}>done</button>
+            {
+                window.innerWidth < 780 && <Keypad keypadClick={keypadClick}/>
+            }
         </section>
     )
 }
