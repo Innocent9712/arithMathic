@@ -37,7 +37,14 @@ const generateQuestion = () => {
     }
 }
 
-for (let index = 0; index < 20 ; index++) {
-    let question = generateQuestion()
-    questions.push(question)
+for (let index = 0; index < 5 ; index++) {
+    let questionObj = generateQuestion()
+    const newObj = {
+        question: questionObj.question,
+        answer: questionObj.answer(),
+        // response: Number(answerInput),
+        response: "NOT ANSWERED",
+        correct: false
+    }
+    questions.push(newObj)
 }
