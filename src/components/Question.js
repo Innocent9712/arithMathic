@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect, useContext, useRef} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppState } from '../App'
 import Keypad from './Keypad'
@@ -17,7 +17,8 @@ function Question() {
     const [quizState, setQuizState] = useState(false)
     const [questionNumber, setQuestionNumber] = useState(1)
     const [currentQuestion, setCurrentQuestion] = useState(centralState.QnA[0])
-    const [answerInput, setAnswerInput] = useState("")
+    // const [answerInput, setAnswerInput] = useState("")
+    const answerInput = useRef("")
     const navigate = useNavigate()
     const [questionBtn, setQuestionBtn] = useState("next")
     let stopTime = false
@@ -38,14 +39,14 @@ function Question() {
                 const secs = number % 60 < 10 ? `0${number%60}`: number % 60
                 setCounter(`${min}:${secs}`)
             }
-
         }
 
         const interval = quizState === true && setInterval(updateCounter, 1000)
         
         return () => {
             if (number <= 0 ) {
-                clearInterval(interval)                
+                clearInterval(interval) 
+                navigate("/result")              
             }
         }
     }, [quizState,number, stopTime])
@@ -58,7 +59,7 @@ function Question() {
 
 
     const handleChange = (e) => {
-            e.target.name === "answer" && setAnswerInput(e.target.value)
+            // e.target.name === "answer" && setAnswerInput(e.target.value)
     }
 
 
@@ -67,19 +68,19 @@ function Question() {
         const buttonValue = e.target.value
 
         if (buttonValue === "next" && questionNumber < centralState.QnA.length) {
-            reducers({type: "UPDATE_QUESTION", payload: {id: questionNumber - 1, response:answerInput}})
+            reducers({type: "UPDATE_QUESTION", payload: {id: questionNumber - 1, response:answerInput.current.value}})
             setQuestionNumber(prevState => prevState + 1)
             setCurrentQuestion(centralState.QnA[questionNumber - 1])
-            setAnswerInput('')
+            answerInput.current.value = ""
             console.log(currentQuestion)
             if (questionNumber === centralState.QnA.length - 1) {
                 setQuestionBtn("submit")
             }
         } else if (buttonValue === "submit") {
-            reducers({type: "UPDATE_QUESTION", payload: {id: questionNumber - 1, response:answerInput}})
-            // setQuizState(false)
-            stopTime = true
-            // navigate("/result")      
+            reducers({type: "UPDATE_QUESTION", payload: {id: questionNumber - 1, response:answerInput.current.value}})
+            setQuizState(false)
+            // stopTime = true
+            navigate("/result")   
         }
 
     }
@@ -89,7 +90,15 @@ function Question() {
     }
 
     const keypadClick = (value) => {
-        setAnswerInput((prevState)=>(prevState+=value))
+        // setAnswerInput((prevState)=>(prevState+=value))
+        answerInput.current.value += value
+    }
+
+    const handleDelete = () => {
+        // setAnswerInput(prevState => (prevState.slice(0, -1)))
+        let currentValue = answerInput.current.value
+        const futureValue = currentValue.toString().slice(0, -1)
+        answerInput.current.value = futureValue   
     }
 
     return (
@@ -106,7 +115,7 @@ function Question() {
                     <h4>Question No. {questionNumber}</h4>
                     <p>{centralState.QnA[questionNumber - 1].question}</p>
                     <label>answer</label>
-                    <input type="number" name="answer" value={answerInput} onChange={handleChange} />
+                    <input type="number" name="answer" ref={answerInput} readOnly={window.innerWidth < 780 && "readonly"} />
                     <button  type="submit" onClick={handleClick} value={questionBtn}>{questionBtn}</button>
                 </div>
             ): (
@@ -117,10 +126,12 @@ function Question() {
             )
         }
             <p className="counter">{counter}</p>
-            <button className={`question_start start ${hide}`} onClick={handleStart}>start</button>
-            <button className="question_end" onClick={()=> setQuizState(false)}>done</button>
+            <div className="quiz_btns">
+                <button className={`quiz_btn ${hide}`} onClick={handleStart}>start</button>
+                <button className={`quiz_btn question_end ${!quizState ? "hide": undefined}`} onClick={handleResult}>done</button>
+            </div>
             {
-                window.innerWidth < 780 && <Keypad keypadClick={keypadClick}/>
+                window.innerWidth < 780 && <Keypad keypadClick={keypadClick} edit={handleDelete}/>
             }
         </section>
     )

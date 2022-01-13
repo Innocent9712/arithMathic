@@ -1,10 +1,23 @@
 @layer components {
     .keypad {
-        @apply flex text-lg;
+        @apply grid grid-cols-3 gap-3 text-lg sm:max-w-lg sm:mx-auto;
         padding-left: 0;
     }
-}
 
-.keypad {
-    padding-left: 0;
+    .key {
+        @apply bg-blue-300 mx-2 py-1 text-center border-2  border-blue-600 text-blue-600 rounded;
+        flex-basis: 15%;
+    }
+
+    .keypad li:first-child {
+        @apply order-4 col-start-1 col-end-3;
+    }
+
+    .keypad li:last-child img {
+        @apply w-5 mx-auto my-1;
+    }
+
+    .del {
+        @apply order-4;
+    }
 }

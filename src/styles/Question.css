@@ -25,6 +25,18 @@
         @apply mt-6;
     }
 
+    .quiz_btns {
+        @apply flex flex-row justify-center my-6;
+    }
+
+    .quiz_btn {
+        @apply py-2 px-4 mx-4 text-white rounded bg-blue-500;
+    }
+
+    .question_end {
+        @apply bg-green-500;
+    }
+
     .hide {
         visibility: hidden;
     }

@@ -1,0 +1,21 @@
+@layer components {
+    .results {
+        @apply my-8 flex flex-col items-center;
+    }
+
+    .results li {
+        @apply my-3 border-2 w-10/12 p-5;
+    }
+
+    .green {
+        @apply bg-green-200 border-green-700;
+    }
+
+    .red {
+        @apply bg-red-200 border-red-700;
+    }
+
+    .result_nav {
+        @apply text-gray-600 flex flex-row justify-between mx-7
+    }
+}

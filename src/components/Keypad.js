@@ -1,9 +1,10 @@
 import React from 'react'
 import "../styles/Keypad.css"
-function Keypad({keypadClick}) {
+import del from "../assets/remove.png"
+function Keypad({keypadClick, edit}) {
     const arr = []
     for (let index = 0; index < 10; index++) {
-        arr.push(<li key={index} onClick={()=> keypadClick(index)}>{index}</li>)
+        arr.push(<li className="key" key={index} onClick={()=> keypadClick(index)}>{index}</li>)
         
     }
     return (
@@ -11,6 +12,9 @@ function Keypad({keypadClick}) {
             {
                 arr
             }
+            <li className="del key" onClick={()=>edit()}>
+                <img src={del} alt="delete" />
+            </li>
         </ul>
     )
 }

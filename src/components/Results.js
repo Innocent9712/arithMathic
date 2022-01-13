@@ -1,10 +1,12 @@
 import React, {useContext} from 'react'
+import { useNavigate } from 'react-router'
 import {AppState} from "../App"
+import "../styles/Results.css"
 
 function Results() {
     const context = useContext(AppState)
     const {centralState} = context
-    console.log(centralState);
+    const navigate = useNavigate()
     
     return (
         <section>
@@ -21,6 +23,10 @@ function Results() {
                     })
                 }
             </ul>
+            <div className="result_nav">
+                <button onClick={()=> navigate("/question")}>{"<< Restart"}</button>
+                <button onClick={()=> navigate("/")}>{"Home >>"}</button>
+            </div>
         </section>
     )
 }
