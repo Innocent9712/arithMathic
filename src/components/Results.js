@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import { useNavigate } from 'react-router'
 import {AppState} from "../App"
 import "../styles/Results.css"
@@ -6,10 +6,20 @@ import "../styles/Results.css"
 function Results() {
     const context = useContext(AppState)
     const {centralState} = context
+    const [score, setScore] = useState(0)
     const navigate = useNavigate()
+
+    useEffect(() => {   
+            for (let index = 0; index < centralState.QnA.length; index++) {
+                if (centralState.QnA[index].correct) {
+                    setScore(prevState => prevState + 1)
+                }                
+            }
+    }, [])
     
     return (
         <section>
+            <h3 className="score">{`You scored ${score} out of ${centralState.QnA.length}`}</h3>
             <ul className="results">
                 {
                     centralState.QnA.map((item, index)=>{
