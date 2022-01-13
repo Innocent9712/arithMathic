@@ -5,7 +5,7 @@ import Keypad from './Keypad'
 import "../styles/Question.css"
 
 function Question() {
-    const quizTime = 2
+    const quizTime = 3
     const [hide, setHide] = useState(undefined)
     const context = useContext(AppState)
     const {centralState,reducers} = context

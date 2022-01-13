@@ -37,7 +37,7 @@ const generateQuestion = () => {
     }
 }
 
-for (let index = 0; index < 5 ; index++) {
+for (let index = 0; index < 20 ; index++) {
     let questionObj = generateQuestion()
     const newObj = {
         question: questionObj.question,
